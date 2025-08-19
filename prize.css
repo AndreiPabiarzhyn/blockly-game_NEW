@@ -1,0 +1,58 @@
+/* prize.css — простая CSS-анимация салюта + стили финальной модалки */
+
+.prize-modal {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,.85);
+  display: none; justify-content: center; align-items: center;
+  z-index: 10000;
+}
+.prize-card {
+  position: relative;
+  background: #1e293b;
+  color: #e5e7eb;
+  width: min(92vw, 560px);
+  border-radius: 14px;
+  padding: 24px;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0,0,0,.6);
+  overflow: hidden;
+}
+.prize-card h2 { margin: 0 0 .5rem; }
+.prize-card p { margin: 0 0 1rem; opacity: .9; }
+.prize-img { max-width: 320px; width: 100%; margin: 0 auto 16px; display:block; }
+.prize-actions { margin-top: 8px; }
+.prize-actions button {
+  cursor: pointer; background: #f59e0b; color: #0b1220;
+  border: 0; border-radius: 8px; padding: .5rem 1rem; font-weight: 700;
+}
+.prize-actions button:hover { background: #fbbf24; }
+
+/* CSS-фейерверки: три «раскрывающихся» точки с множеством теней */
+.fireworks { pointer-events: none; }
+.firework,
+.firework::before,
+.firework::after {
+  --size: 6px;
+  content: "";
+  position: absolute;
+  top: 50%; left: 50%;
+  width: var(--size); height: var(--size);
+  background: transparent;
+  border-radius: 50%;
+  box-shadow:
+    0 0 #ffbf00, 15px 0 #ff6a00, -15px 0 #ffd166, 0 15px #ff9d00, 0 -15px #ffe680,
+    10px 10px #ff8a00, -10px 10px #ffc400, 10px -10px #ffd166, -10px -10px #ff9d00;
+  animation: explode 1.8s ease-out infinite;
+}
+.firework::before { transform: rotate(60deg); }
+.firework::after  { transform: rotate(-60deg); }
+
+.firework { animation-delay: 0s; }
+.firework.delay1 { animation-delay: .6s; }
+.firework.delay2 { animation-delay: 1.2s; }
+
+@keyframes explode {
+  0%   { transform: translate(-50%,-50%) scale(.2); opacity: 1; }
+  70%  { opacity: 1; }
+  100% { transform: translate(-50%,-50%) scale(2.2); opacity: 0; }
+}
