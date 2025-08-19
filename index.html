@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Blockly Game Starter</title>
+
+  <!-- Стили -->
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="prize.css">
+  <!-- Blockly CDN -->
+  <script src="https://unpkg.com/blockly/blockly.min.js"></script>
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <!-- левая область -->
+      <div class="topbar__left">
+        <h1 class="brand-title">Blockly Game Starter</h1>
+        <img src="assets/kodland.png" alt="Kodland" class="logo" />
+      </div>
+
+      <!-- правая область -->
+      <div class="topbar__right">
+        <!-- группа 1: навигация уровней -->
+        <div class="level-nav">
+          <button id="btnPrev" title="Предыдущий уровень">◀</button>
+          <span id="levelLabel">Уровень 1/15</span>
+          <button id="btnNext" title="Следующий уровень">▶</button>
+        </div>
+
+        <!-- группа 2: действия -->
+        <div class="primary-actions">
+          <button id="btnRun">Запустить ▶</button>
+          <button id="btnReset">Сброс ⟲</button>
+          <button id="btnHint">Подсказка 💡</button>
+        </div>
+      </div>
+    </header>
+
+
+    <main class="layout">
+      <section class="left">
+        <div id="blocklyDiv"></div>
+      </section>
+      <section class="right">
+        <div class="stage-wrap">
+          <canvas id="stage" width="560" height="560" aria-label="Игровая сцена" role="img"></canvas>
+        </div>
+        <div class="console" id="console" aria-live="polite"></div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Модальное окно старта -->
+  <div class="modal" id="modalStart" aria-hidden="false">
+    <div class="modal__card">
+      <h2>Пройди все 10 уровней и забери приз 🎁</h2>
+      <p>Собирай кристалл(ы), используй блоки перемещения. Начиная с 5 уровня — обязательно используй циклы.</p>
+      <button id="btnStart">Старт</button>
+    </div>
+  </div>
+
+  <!-- Финальный экран -->
+  <div class="modal" id="modalWin" aria-hidden="true">
+    <div class="modal__card">
+      <h2>Поздравляем! Ты прошёл все уровни 🎉</h2>
+      <audio id="end-audio" src="assets/end.mp3" preload="auto"></audio>
+      <p>Вот твой большой приз!</p>
+      <img src="assets/prize.png" alt="Приз" onerror="this.style.display='none'">
+      <canvas id="fw" width="600" height="300"></canvas>
+      <button id="btnRestart">С начала</button>
+    </div>
+  </div>
+
+  <!-- Тулбокс для Blockly -->
+  <xml id="toolbox" style="display:none">
+    <block type="when_run"></block>
+    <block type="move_right"></block>
+    <block type="move_left"></block>
+    <block type="move_up"></block>
+    <block type="move_down"></block>
+
+    <block type="controls_repeat_ext">
+      <value name="TIMES">
+        <shadow type="repeat_count"></shadow>
+      </value>
+    </block>
+
+    <block type="pick_coin"></block>
+  </xml>
+
+  <!-- Результат -->
+  <div class="modal" id="modalResult" aria-hidden="true">
+    <div class="modal__card">
+      <img id="resultImg" src="" alt="" style="max-width:240px; display:block; margin:0 auto 1rem;">
+      <h2 id="resultTitle" style="margin-bottom:0.5rem"></h2>
+      <p id="resultMsg" style="margin-bottom:1rem"></p>
+      <div style="display:flex; gap:.5rem; justify-content:center;">
+        <button id="btnResultClose">Ок</button>
+        <button id="btnNextLevel">Дальше ▶</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Подсказка -->
+  <div class="modal" id="modalHint" aria-hidden="true">
+    <div class="modal__card">
+      <h2>Подсказка 💡</h2>
+      <p id="hintText" style="margin: .75rem 0 1rem;"></p>
+      <div style="display:flex; gap:.5rem; justify-content:center;">
+        <button id="btnAutoStart">Авто-добавить «Когда запущено»</button>
+        <button id="btnHintClose">Понятно</button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      Сделано с ❤️ для Kodland · разработчик: <strong>Andrei Pabiarzhyn</strong> · © 2025
+    </div>
+  </footer>
+
+<!-- Скрипты -->
+<script src="tasks.js"></script>
+<script src="blocks.js"></script>
+<script src="app.js"></script>
+
+</body>
+</html>
