@@ -8,31 +8,31 @@ window.LEVELS = [
     grid: 8,
     player: { x: 0, y: 7 },
     coins:  [{x:2,y:7},{x:4,y:7}],
-    limits: { min: 4, max: 8 },
+    limits: { min: 4, max: 9 },
     hint: "Иди вправо и забирай монеты по пути."
   },
   {
     grid: 8, player: {x:0,y:7},
     coins: [{x:3,y:7},{x:3,y:5}],
-    limits:{min:4,max:8},
+    limits:{min:4,max:9},
     hint:"Сначала вправо, затем вверх."
   },
   {
     grid: 8, player: {x:0,y:7},
     coins: [{x:5,y:7},{x:5,y:6},{x:6,y:6}],
-    limits:{min:4,max:8},
+    limits:{min:4,max:11},
     hint:"Вправо до упора, потом немного вверх и снова вправо."
   },
   {
     grid: 8, player: {x:0,y:7},
     coins: [{x:2,y:7},{x:2,y:6},{x:2,y:5},{x:4,y:5}],
-    limits:{min:4,max:8},
+    limits:{min:4,max:11},
     hint:"Вправо → вверх ↑ вверх ↑ вверх → вправо."
   },
   {
     grid: 8, player: {x:0,y:7},
     coins: [{x:1,y:7},{x:1,y:6},{x:3,y:6},{x:5,y:6}],
-    limits:{min:4,max:8},
+    limits:{min:4,max:11},
     hint:"Чередуем вправо и вверх, собирая монеты."
   },
 
@@ -40,31 +40,31 @@ window.LEVELS = [
   {
     grid: 8, player:{x:0,y:7},
     coins:[{x:6,y:7}],
-    limits:{min:3,max:8}, require:{loops:true},
+    limits:{min:3,max:11}, require:{loops:true},
     hint:"Используй цикл, чтобы пройти несколько шагов вправо."
   },
   {
     grid: 8, player:{x:0,y:7},
     coins:[{x:0,y:4},{x:0,y:1}],
-    limits:{min:3,max:8}, require:{loops:true},
+    limits:{min:3,max:11}, require:{loops:true},
     hint:"Поднимись на несколько клеток вверх с помощью цикла."
   },
   {
     grid: 8, player:{x:0,y:7},
     coins:[{x:4,y:7},{x:4,y:3}],
-    limits:{min:3,max:8}, require:{loops:true},
+    limits:{min:3,max:11}, require:{loops:true},
     hint:"Сначала вправо 4 шага, затем вверх 4 шага — циклы помогут."
   },
   {
     grid: 8, player:{x:0,y:7},
     coins:[{x:3,y:6},{x:6,y:6},{x:6,y:3}],
-    limits:{min:3,max:8}, require:{loops:true},
+    limits:{min:3,max:11}, require:{loops:true},
     hint:"Идём вправо 3, вверх 1, вправо 3, вверх 3."
   },
   {
     grid: 8, player:{x:0,y:7},
     coins:[{x:2,y:7},{x:2,y:5},{x:5,y:5},{x:5,y:2}],
-    limits:{min:3,max:8}, require:{loops:true},
+    limits:{min:3,max:11}, require:{loops:true},
     hint:"Пара циклов вправо и вверх. Подумай, как повторить шаблон."
   },
 
@@ -72,25 +72,25 @@ window.LEVELS = [
   {
     grid: 8, player:{x:0,y:7},
     coins:[{x:1,y:7},{x:2,y:6},{x:3,y:5},{x:4,y:4},{x:5,y:3}],
-    limits:{min:3,max:8}, require:{loops:true}, hard:true,
+    limits:{min:3,max:11}, require:{loops:true}, hard:true,
     hint:"★ Диагональ вверх-вправо. Как описать такт в цикле?"
   },
   {
     grid: 8, player:{x:0,y:7},
     coins:[{x:2,y:7},{x:2,y:5},{x:4,y:5},{x:4,y:3},{x:6,y:3}],
-    limits:{min:3,max:10}, require:{loops:true}, hard:true,
+    limits:{min:3,max:12}, require:{loops:true}, hard:true,
     hint:"★ «Лестница»: вправо 2, вверх 2 — повторять."
   },
   {
     grid: 8, player:{x:0,y:7},
     coins:[{x:7,y:7},{x:7,y:5},{x:7,y:3},{x:7,y:1}],
-    limits:{min:3,max:10}, require:{loops:true}, hard:true,
+    limits:{min:3,max:12}, require:{loops:true}, hard:true,
     hint:"★ До правого края циклом, затем повторяющийся подъём."
   },
   {
     grid: 8, player:{x:0,y:7},
     coins:[{x:3,y:7},{x:3,y:4},{x:5,y:4},{x:5,y:1}],
-    limits:{min:3,max:10}, require:{loops:true}, hard:true,
+    limits:{min:3,max:12}, require:{loops:true}, hard:true,
     hint:"★ Блоками по 3 шага: вправо 3, вверх 3, вправо 2, вверх 3."
   },
 
