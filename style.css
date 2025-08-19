@@ -1,0 +1,383 @@
+/* ===================== БАЗА ===================== */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root{
+  --topbar-h: 56px;
+  --footer-h: 64px;
+
+  /* Палитра для выпадающих меню (светлая) */
+  --dd-bg: #f9fafb;
+  --dd-fg: #111827;
+  --dd-border: #d1d5db;
+  --dd-hover-bg: #2563eb;
+  --dd-hover-fg: #ffffff;
+  --dd-scroll-track: #f3f4f6;
+  --dd-scroll-thumb: #9ca3af;
+
+  /* Кнопки */
+  --btn-bg: #f59e0b;
+  --btn-bg-hover: #fbbf24;
+  --run-bg: #22c55e;
+  --run-bg-hover: #16a34a;
+  --run-fg: #072b12;
+}
+
+html, body {
+  height: 100%;
+  background: #0b1220;
+  color: #e5e7eb;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+  overflow: hidden;                 /* без прокрутки страницы */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ===================== ВЕРХНЯЯ ПАНЕЛЬ ===================== */
+/* Две зоны: слева (название+логотип), справа (навигация+действия) */
+.topbar{
+  height: var(--topbar-h);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap: 12px;
+  background: linear-gradient(90deg, #0ea5e9, #22d3ee);
+  padding: .5rem 1rem;
+  color:#fff;
+  border-bottom: 1px solid rgba(0,0,0,.15);
+}
+
+/* Левая зона */
+.topbar__left{
+  display:flex;
+  align-items:center;
+  gap:12px;                 /* отступ между заголовком и логотипом */
+  min-width: 260px;
+}
+.topbar__left h1 { font-size: 16px; font-weight: 800; line-height: 1; letter-spacing:.2px; }
+.logo {
+  height: 32px; width: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 1px 1px rgba(0,0,0,.25));
+}
+
+/* Правая зона: две группы с разделителем */
+.topbar__right{
+  display:flex;
+  align-items:center;
+  gap: 24px;                /* расстояние между группами */
+  margin-right: 6vw;
+}
+
+/* Группа 1 — навигация по уровням */
+.level-nav{
+  display:flex;
+  align-items:center;
+  gap: 8px;
+  padding-right: 16px;
+  border-right: 1px solid rgba(255,255,255,.35);
+}
+#levelLabel{ font-weight: 700; }
+
+/* Группа 2 — основные действия */
+.primary-actions{
+  display:flex;
+  align-items:center;
+  gap: 8px;
+}
+
+/* Кнопки (общие) */
+.topbar button{
+  cursor:pointer;
+  background: var(--btn-bg);
+  color:#0b1220;
+  border:0;
+  border-radius:10px;
+  padding:.45rem .9rem;
+  font-weight:700;
+  letter-spacing:.2px;
+  transition: all .18s ease;
+  box-shadow: 0 2px 0 rgba(0,0,0,.15), inset 0 -2px 0 rgba(0,0,0,.1);
+}
+.topbar button:hover{ background: var(--btn-bg-hover); transform: translateY(-1px); }
+.topbar button:active{ transform: translateY(0); box-shadow: 0 1px 0 rgba(0,0,0,.2) inset; }
+
+/* Кнопки ◀ ▶ делаем компактнее */
+#btnPrev, #btnNext{ padding: .35rem .6rem; border-radius: 8px; }
+
+/* «Запустить» — зелёная, более заметная */
+#btnRun{
+  background: var(--run-bg) !important;
+  color: var(--run-fg) !important;
+  box-shadow: 0 2px 0 rgba(0,0,0,.15), inset 0 -2px 0 rgba(0,0,0,.08);
+}
+#btnRun:hover{ background: var(--run-bg-hover) !important; }
+
+/* ===================== РАЗМЕТКА ОСНОВНОЙ ЧАСТИ ===================== */
+.layout {
+  height: calc(100vh - var(--topbar-h) - var(--footer-h));
+  min-height: 0;
+  display: flex;
+  gap: 16px;
+  padding: 12px 12px 16px;
+}
+
+/* Левая колонка — Blockly */
+.left {
+  flex: 1;
+  position: relative;
+  min-height: 0;
+  overflow: hidden;
+  background: #111827;               /* темнее: лучше видно блоки/сетку */
+  padding: 10px 10px 14px;
+  border-radius: 10px;
+  box-shadow: inset 0 0 0 1px #1f2a44;
+}
+
+/* Правая колонка — сцена */
+.right {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  background: #0f172a;
+  border-left: 2px solid #1f2a44;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: inset 0 0 0 1px #1f2a44;
+}
+.stage-wrap {
+  flex: 1; min-height: 0;
+  display: flex; justify-content: center; align-items: center;
+  padding: 8px;
+}
+#stage {
+  max-width: 100%; max-height: 100%;
+  background: url("assets/bg.png") center/cover no-repeat;
+  border: 2px solid #1f2a44; border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,.4);
+}
+.console {
+  min-height: 60px; padding: .6rem .8rem;
+  border-top: 2px solid #1f2a44; font-size: .92rem; overflow-y: auto;
+  color:#cbd5e1;
+}
+
+/* ===================== BLOCKLY ===================== */
+#blocklyArea { position: absolute; inset: 0; }
+#blocklyDiv  { position: absolute; inset: 0; }
+
+.blocklyToolboxDiv { background: #0f172a !important; color: #e5e7eb !important; }
+.blocklyTreeLabel { color: #e5e7eb !important; font-size: 14px !important; }
+.blocklyTreeRow:hover { background: #1e293b !important; }
+.blocklyFlyoutBackground { fill: #0b1220 !important; stroke: none !important; }
+.blocklyMainBackground   { fill: #0b1220 !important; stroke: none !important; shape-rendering: crispEdges; }
+.blocklyGridPattern line { stroke: #64748b !important; }
+
+/* Тултипы не нужны */
+.blocklyTooltipDiv { display: none !important; }
+
+/* Оверлеи меню над канвасом, под модалками */
+.blocklyWidgetDiv,
+.blocklyDropDownDiv {
+  z-index: 1002 !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+/* === Выпадашки/списки — светлая тема === */
+.blocklyWidgetDiv .goog-menu,
+.blocklyDropDownDiv .goog-menu,
+.blocklyDropDownDiv .blocklyDropDownContent {
+  background: var(--dd-bg) !important;
+  color: var(--dd-fg) !important;
+  border: 1px solid var(--dd-border) !important;
+  box-shadow: 0 8px 24px rgba(0,0,0,.2) !important;
+  font-size: 14px !important;
+  max-height: 260px;
+  overflow: auto;
+  scrollbar-gutter: stable;
+}
+.blocklyWidgetDiv .goog-menuitem,
+.blocklyDropDownDiv .goog-menuitem {
+  color: var(--dd-fg) !important;
+  line-height: 28px !important;
+  padding: 2px 10px !important;
+}
+.blocklyWidgetDiv .goog-menuitem .goog-menuitem-content,
+.blocklyDropDownDiv .goog-menuitem .goog-menuitem-content {
+  color: var(--dd-fg) !important;
+}
+.blocklyWidgetDiv .goog-menuitem-hover,
+.blocklyWidgetDiv .goog-menuitem-highlight,
+.blocklyDropDownDiv .goog-menuitem-hover,
+.blocklyDropDownDiv .goog-menuitem-highlight {
+  background: var(--dd-hover-bg) !important;
+  color: var(--dd-hover-fg) !important;
+}
+.blocklyWidgetDiv .goog-menuitem-disabled,
+.blocklyWidgetDiv .goog-menuitem-disabled .goog-menuitem-content,
+.blocklyDropDownDiv .goog-menuitem-disabled,
+.blocklyDropDownDiv .goog-menuitem-disabled .goog-menuitem-content {
+  color: #9ca3af !important;
+}
+/* скролл меню */
+.blocklyWidgetDiv .goog-menu::-webkit-scrollbar,
+.blocklyDropDownDiv .goog-menu::-webkit-scrollbar { width: 10px; }
+.blocklyWidgetDiv .goog-menu::-webkit-scrollbar-track,
+.blocklyDropDownDiv .goog-menu::-webkit-scrollbar-track { background: var(--dd-scroll-track); }
+.blocklyWidgetDiv .goog-menu::-webkit-scrollbar-thumb,
+.blocklyDropDownDiv .goog-menu::-webkit-scrollbar-thumb {
+  background: var(--dd-scroll-thumb);
+  border-radius: 8px;
+  border: 2px solid var(--dd-scroll-track);
+}
+.blocklyWidgetDiv .goog-menu,
+.blocklyDropDownDiv .goog-menu { scrollbar-color: var(--dd-scroll-thumb) var(--dd-scroll-track); }
+
+/* Контекстное меню (ПКМ) — та же светлая тема */
+.blocklyWidgetDiv .goog-menu {
+  background: var(--dd-bg) !important;
+  color: var(--dd-fg) !important;
+  border: 1px solid var(--dd-border) !important;
+  box-shadow: 0 8px 24px rgba(0,0,0,.2) !important;
+}
+.blocklyWidgetDiv .goog-menuitem {
+  color: var(--dd-fg) !important;
+  font-size: 14px !important;
+  line-height: 28px !important;
+  padding: 4px 12px !important;
+}
+.blocklyWidgetDiv .goog-menuitem .goog-menuitem-content { color: var(--dd-fg) !important; }
+.blocklyWidgetDiv .goog-menuitem-hover,
+.blocklyWidgetDiv .goog-menuitem-highlight {
+  background: var(--dd-hover-bg) !important;
+  color: var(--dd-hover-fg) !important;
+}
+
+/* Более «скромные» внутренние скроллбары Blockly */
+.blocklyScrollbarBackground { fill: transparent !important; }
+.blocklyScrollbarHandle {
+  fill: #475569 !important;
+  opacity: .45 !important;
+  stroke: #1f2a44 !important;
+  stroke-width: 1;
+  rx: 4; ry: 4;
+}
+.blocklyScrollbarHandle:hover { opacity: .9 !important; }
+.blocklyScrollbarHorizontal { transform: translateY(-2px); }
+
+/* ===================== МОДАЛЬНЫЕ ОКНА ===================== */
+.modal {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,.8);
+  display: none; justify-content: center; align-items: center;
+  z-index: 10000;
+}
+.modal[aria-hidden="false"] { display: flex; }
+.modal__card {
+  background: #1e293b; padding: 2rem; border-radius: 12px; text-align: center;
+  max-width: 520px; width: min(92vw, 520px);
+  box-shadow: 0 8px 24px rgba(0,0,0,.5);
+}
+.modal__card h2 { margin-bottom: 1rem; font-size: 1.4rem; }
+.modal__card p  { margin-bottom: 1rem; }
+.modal__card img { max-width: 240px; display: block; margin: 0 auto 1rem; }
+.modal__card button { margin-top: .5rem; }
+
+/* блокируем клики «под» модалкой */
+body.modal-open .layout, body.modal-open .topbar { pointer-events: none; }
+body.modal-open .modal { pointer-events: all; }
+
+/* ===================== ФУТЕР ===================== */
+.footer {
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  height: var(--footer-h);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #0b1220;
+  color: #94a3b8;
+  border-top: 1px solid #1f2a44;
+  padding: 0 12px;
+  font-size: 14px;
+  z-index: 9000;
+}
+.footer .container { text-align: center; }
+.footer a { color: #22d3ee; text-decoration: none; }
+.footer a:hover { text-decoration: underline; }
+
+/* ===================== АДАПТИВ ===================== */
+@media (max-width: 1100px) {
+  .layout { flex-direction: column; }
+  .left, .right {
+    flex: none;
+    height: calc((100vh - var(--topbar-h) - var(--footer-h)) / 2);
+    min-height: 320px;
+  }
+}
+@media (max-width: 900px){
+  .topbar{ flex-wrap: wrap; height: auto; padding-top: .6rem; padding-bottom: .6rem; }
+  .topbar__left{ width: 100%; justify-content: flex-start; }
+  .topbar__right{ width: 100%; justify-content: space-between; }
+  .level-nav{ border-right: 0; padding-right: 0; }
+}
+
+/* ===== КРАСИВЫЕ КНОПКИ В МОДАЛКАХ ===== */
+.modal__card .modal__actions{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  margin-top:12px;
+}
+
+.modal__card button,
+.prize-card button {
+  appearance: none;
+  cursor: pointer;
+  border: 0;
+  border-radius: 10px;
+  padding: .55rem 1rem;
+  font-weight: 800;
+  letter-spacing: .2px;
+  background: var(--btn-bg);         /* оранжевая как в шапке */
+  color: #0b1220;
+  box-shadow: 0 2px 0 rgba(0,0,0,.15), inset 0 -2px 0 rgba(0,0,0,.08);
+  transition: transform .15s ease, background .15s ease, box-shadow .15s ease;
+}
+.modal__card button:hover,
+.prize-card button:hover { background: var(--btn-bg-hover); transform: translateY(-1px); }
+.modal__card button:active,
+.prize-card button:active { transform: translateY(0); box-shadow: 0 1px 0 rgba(0,0,0,.2) inset; }
+
+/* Зелёная — для действия «дальше/продолжить» */
+#btnNextLevel {
+  background: var(--run-bg) !important;
+  color: var(--run-fg) !important;
+}
+#btnNextLevel:hover { background: var(--run-bg-hover) !important; }
+
+/* Нейтральные/вторичные (закрыть/ок/подсказка/старт/рестарт) */
+#btnResultClose,
+#btnHintClose,
+#btnStart,
+#btnRestartAll {
+  background: var(--btn-bg);
+  color: #0b1220;
+}
+
+/* на всякий — выравниваем кнопку, если внутри нет обёртки .modal__actions */
+#btnResultClose, #btnNextLevel, #btnHintClose, #btnStart, #btnRestartAll {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 96px; text-align: center;
+}
+
+/* чуть больше места под кнопками */
+.modal__card button { margin-top: 6px; }
