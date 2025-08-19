@@ -28,7 +28,7 @@
         this.appendDummyInput().appendField(label);
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour("#4f46e5");
+        this.setColour("#10b981");
       },
     };
   }
