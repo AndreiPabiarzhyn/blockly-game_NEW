@@ -87,7 +87,7 @@
 
   function showHint() {
     const L = window.LEVELS[currentLevel];
-    hintText.textContent = L.hint || "Подумай: где кристаллы и как туда дойти?";
+    hintText.textContent = L.hint || "Подумай: где монеты и как туда дойти?";
     modalHint.setAttribute("aria-hidden", "false");
     bodyLock(true);
   }
@@ -395,10 +395,10 @@ requestAnimationFrame(positionActionsBar);
       if (currentLevel === window.LEVELS.length - 1) {
         showFinalPrize(); // финальная модалка и салют
       } else {
-        showResult(true, "Отлично! Все кристаллы собраны.");
+        showResult(true, "Отлично! Все монеты собраны.");
       }
     } else {
-      failReset("Не все кристаллы собраны. Попробуй ещё раз.");
+      failReset("Не все монеты собраны. Попробуй ещё раз.");
     }
   }
 
