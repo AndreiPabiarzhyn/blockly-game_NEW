@@ -32,10 +32,10 @@
       },
     };
   }
-  makeMoveBlock("move_right", "Вправо");
-  makeMoveBlock("move_left",  "Влево");
-  makeMoveBlock("move_up",    "Вверх");
-  makeMoveBlock("move_down",  "Вниз");
+  makeMoveBlock("move_right", "Вправо➡️");
+  makeMoveBlock("move_left",  "Влево⬅️");
+  makeMoveBlock("move_up",    "Вверх⬆️");
+  makeMoveBlock("move_down",  "Вниз⬇️");
 
   regGen("move_right", () => "await __move(1,0);\n");
   regGen("move_left",  () => "await __move(-1,0);\n");
